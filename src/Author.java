@@ -26,7 +26,7 @@ public class Author {
             this.name = name.trim();
         } else {
             String error = " ОШИБКА ввода имени автора - " + this.surname;
-            throw new RuntimeException(error);
+            throw new IllegalArgumentException(error);
         }
     }
 
@@ -35,7 +35,28 @@ public class Author {
             this.surname = surname.trim();
         } else {
             String error = "ОШИБКА ввода фамилии автора";
-            throw new RuntimeException(error);
+            throw new IllegalArgumentException(error);
         }
     }
-}
+
+    @Override
+    public String toString() {
+
+        return String.format("%20s%20s", this.name, this.surname);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        result = java.util.Objects.hash(this.name) + java.util.Objects.hash(this.surname);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Author that = (Author) object;
+       return surname.equals(that.surname) && name.equals(that.name);
+        }
+    }
